@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>362 Әулие — Маңғыстау</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; }
+        #map { width: 100%; height: 100vh; }
+        .popup-card { max-width: 220px; text-align: center; }
+        .popup-card h3 { margin: 5px 0; color: #2c3e50; }
+        .popup-card p { font-size: 13px; color: #555; margin: 0; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        window.Telegram.WebApp.ready();
+        const map = L.map('map').setView([43.65, 51.15], 8);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        const sacredPlaces = [
+            { name: "Бекет ата (Оғланды)", coords: [43.5986, 54.0701], desc: "Маңғыстаудың ең белгілі жерасты мешіті." },
+            { name: "Шопан ата", coords: [43.5383, 53.4028], desc: "Қожа Ахмет Ясауидің шәкірті, көне жерасты мешіті." },
+            { name: "Шақпақ ата", coords: [44.4322, 51.1392], desc: "Тасқа қашалып жасалған бірегей жерасты мешіті." },
+            { name: "Сұлтан епе", coords: [44.4753, 50.9856], desc: "Теңізшілер мен саяхатшылардың жебеушісі." }
+        ];
+
+        sacredPlaces.forEach(place => {
+            const marker = L.marker(place.coords).addTo(map);
+            marker.bindPopup(`<div class="popup-card"><h3>${place.name}</h3><p>${place.desc}</p></div>`);
+        });
+    </script>
+</body>
+</html>
